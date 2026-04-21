@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->foreignKey('user_id'); // For who creates/manages the event
+            $table->string('name');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

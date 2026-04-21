@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('to_dos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('created_by')->constrained('users');
+            $table->foreignId('assigned_to')->constrained('users');
+            $table->string('title');
+            $table->text('notes')->nullable();
+            $table->enum('type', ['chore', 'reminder'])->default('reminder');
             $table->timestamps();
         });
     }
