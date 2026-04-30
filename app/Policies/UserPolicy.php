@@ -2,10 +2,19 @@
 namespace App\Policies;
 use App\Models\User;
 class UserPolicy {
+    public function viewAny(User $user): bool {
+        return true;
+    }
     /**
-     * Create a new policy instance.
+     * A user may view another profile if they are family members.
      */
-    public function __construct() {
-        
+    public function view(User $user, User $target): bool {
+        return $user->id === $target->id || $user->isFamilyMember($target);
+    }
+    /**
+     * A parent may link a child account that has fewer than 2 parents.
+     */
+    public function linkChild(User $user, User $target): bool {
+        return $user->isParent() && $target->isChild() && ! $target->parents->contains('id', $user->id) && $target->parents->count() < 2;
     }
 }
