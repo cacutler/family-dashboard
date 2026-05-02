@@ -17,4 +17,18 @@ class TodoController extends Controller {
         })->orderBy('created_at', 'desc')->get();
         return response()->json($todos);
     }
+    public function show() {}
+    /**
+     * Only parents may create todos and may assign them to any family member.
+     */
+    public function store() {}
+    /**
+     * Full update for parents; children may only update 'notes' and 'completed'.
+     */
+    public function update() {}
+    /**
+     * Toggle completed status — available to assigned child or parent.
+     */
+    public function complete() {}
+    public function destroy() {}
 }
